@@ -47,26 +47,61 @@ class DynamicController extends Controller
      */
     public function show()
     {
-        // Retrieve forms created by admins
         $forms = Form::all();
 
-        // Return the view with the forms data
         return view('dynamic-form.index', compact('forms'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+
+    public function edit($id)
     {
-        //
+        $form = Form::find($id);
+        
+        return view('dynamic-form.edit', compact('form'));
+
     }
+
+    public function update(Request $request, $formId)
+    {
+        $validatedData = $request->validate([
+            'form_name' => 'required|string|max:255',
+            'label' => 'required|array',
+            'field' => 'required|array',
+            'comment' => 'required|array',
+        ]);
+
+        $form = Form::findOrFail($formId);
+
+        $form->update([
+            'form_name' => $validatedData['form_name'],
+        ]);
+
+        $fields = [];
+        foreach ($validatedData['label'] as $key => $label) {
+            $fields[] = [
+                'label' => $label,
+                'field' => $validatedData['field'][$key],
+                'comment' => $validatedData['comment'][$key],
+            ];
+        }
+        $form->fields()->delete(); 
+        $form->fields()->createMany($fields); 
+
+        return redirect()->route('dynamic-form.show', $formId)->with('success', 'Form updated successfully');
+    }
+
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+        $form = Form::find($id);
+        $form->delete();
+
+        return redirect()->back()->with('success', 'Form deleted successfully.');
     }
 }

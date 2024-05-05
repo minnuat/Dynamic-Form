@@ -24,6 +24,9 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/dynamic-form', [DynamicController::class, 'index'])->name('dynamic-form.create');
     Route::post('/dynamic-form-save', [DynamicController::class, 'store'])->name('dynamic-form.store');
+    Route::get('/dynamic-form-edit/{Id}', [DynamicController::class, 'edit'])->name('dynamic-form.edit');
+    Route::put('/dynamic-form-update/{Id}', [DynamicController::class, 'update'])->name('dynamic-form.update');
+    Route::delete('/dynamic-form-destroy/{Id}', [DynamicController::class, 'destroy'])->name('dynamic-form.destroy');
 
     Route::get('/admin/forms', [DynamicController::class, 'show'])->name('dynamic-form.show');
 
