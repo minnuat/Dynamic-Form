@@ -5,3 +5,5 @@
 # Generate key
 # php artisan:migrate
 # php artisan db:seed
+# Admin Credential : admin@a.com  /  admin
+# User Credential  : user@u.com  / user
