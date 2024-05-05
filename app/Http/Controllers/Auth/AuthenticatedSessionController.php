@@ -28,7 +28,18 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(route('dashboard', absolute: false));
+        $user = Auth::user();
+        if ($user->usertype === 'admin') 
+        {
+            return redirect()->intended(route('dynamic-form.show'));
+        } 
+        else 
+        {
+            return redirect()->intended(route('forms.index'));
+        }
+
+
+        // return redirect()->intended(route('dashboard', absolute: false));
     }
 
     /**

@@ -7,10 +7,13 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use App\Models\Form;
 
 class SendFormCreationNotification implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+
+    protected $form;
 
     /**
      * Create a new job instance.
@@ -27,8 +30,10 @@ class SendFormCreationNotification implements ShouldQueue
      */
     public function handle()
     {
-        // Logic to send email notification
-        $email = 'admin@example.com'; // Change this to the admin's email address
+        
+        // $email = 'admin@a.com'; 
+        $email  = 'minnu.tolstoy@gmail.com'; 
+
         $subject = 'New Form Created';
         $message = 'A new form has been successfully created: ' . $this->form->form_name;
 

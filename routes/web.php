@@ -22,8 +22,11 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
 
-    Route::get('/dynamic-form', [DynamicController::class, 'index']);
+    Route::get('/dynamic-form', [DynamicController::class, 'index'])->name('dynamic-form.create');
     Route::post('/dynamic-form-save', [DynamicController::class, 'store'])->name('dynamic-form.store');
+
+    Route::get('/admin/forms', [DynamicController::class, 'show'])->name('dynamic-form.show');
+
 
 });
 

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Form;
 use App\Models\FormField;
+use App\Jobs\SendFormCreationNotification;
 
 class DynamicController extends Controller
 {
@@ -35,15 +36,22 @@ class DynamicController extends Controller
             $field->save();
         }
 
+
+        SendFormCreationNotification::dispatch($form);
+
         return redirect()->back()->with('success', 'Form saved successfully.');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show()
     {
-        //
+        // Retrieve forms created by admins
+        $forms = Form::all();
+
+        // Return the view with the forms data
+        return view('dynamic-form.index', compact('forms'));
     }
 
     /**
