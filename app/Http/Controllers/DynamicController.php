@@ -39,7 +39,8 @@ class DynamicController extends Controller
 
         SendFormCreationNotification::dispatch($form);
 
-        return redirect()->back()->with('success', 'Form saved successfully.');
+        return redirect()->route('dynamic-form.show')->with('success', 'Form created successfully');
+
     }
 
     /**
