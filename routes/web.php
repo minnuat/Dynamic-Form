@@ -33,6 +33,7 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/forms', [UserController::class, 'index'])->name('forms.index');
 Route::get('/forms/{id}', [UserController::class, 'show'])->name('forms.show');
+Route::post('/forms/store', [UserController::class, 'store'])->name('forms.store');
 
 
 
